@@ -1,0 +1,27 @@
+﻿@page "/home"
+
+@inject NavigationManager NavigationManager
+
+<h3>Home</h3>
+
+<button type="button" class="btn btn-outline-primary" @onclick="onUserClicked">Users</button>
+<button type="button" class="btn btn-outline-primary" @onclick="onRoleClicked">Roles</button>
+<button type="button" class="btn btn-outline-info" @onclick="onAboutClicked">About</button>
+
+@code {
+
+    private void onUserClicked()
+    {
+        NavigationManager.NavigateTo("/account/users");
+    }
+
+    private void onRoleClicked()
+    {
+        NavigationManager.NavigateTo("/account/roles");
+    }
+
+    private void onAboutClicked()
+    {
+        NavigationManager.NavigateTo("/about");
+    }
+}

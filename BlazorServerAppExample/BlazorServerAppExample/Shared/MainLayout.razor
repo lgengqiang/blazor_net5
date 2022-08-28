@@ -1,0 +1,114 @@
+﻿@inherits LayoutComponentBase
+
+@using BlazorServerAppExample.Data;
+@using BlazorServerAppExample.Data.ViewModel
+
+@inject IAccountService AccountService
+
+@if (AccountService != null && AccountService.Account != null)
+{
+    <div class="container-fluid h-100 d-flex flex-column m-0 p-0">
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center bg-success m-0 p-0">
+            <h3 class="mx-3 my-3 py-0 text-white">Blazor Example</h3>
+            <h4 class="my-3 py-0 text-white">Users and roles</h4>
+            <h6 class="mx-3 my-auto text-white">Account: @(AccountService.Account.DisplayName)</h6>
+        </div>
+
+        <!-- Main -->
+        <div class="flex-grow-1 m-0 p-0">
+            <div class="row g-0 h-100">
+
+                <!-- Nav Panel -->
+                <div class="col-2 d-flex justify-content-start align-items-start">
+                    <NavMenu />
+                </div>
+
+                <!-- Content Panel -->
+                <div class="col-10 bg-secondary">
+                    <div class="d-flex justify-content-center">
+                        <div class="container-sm bg-white m-3 p-3">
+                            @Body
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="d-flex justify-content-center align-items-center bg-info m-0 p-0">
+            <div class="my-2 py-0">Copyright @@2022</div>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="container-fluid h-100 d-flex justify-content-center align-items-center m-0 p-0">
+        <div class="card" style="min-width: 400px;">
+            <div class="card-header">
+                <span>User login</span>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Login name:</label>
+                    <input type="text" class="form-control" @bind-value="_userLoginName" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password:</label>
+                    <input type="password" class="form-control" @bind-value="_password" />
+                </div>
+                <button class="btn btn-primary" disabled="@_isLoading" @onclick="OnButtonLoginClicked">
+                    @if (_isLoading)
+                    {
+                        <span><span class="spinner-border spinner-border-sm"></span>&nbsp;Loading</span>
+                    }
+                    else
+                    {
+                        <span>Login</span>
+                    }
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string _userLoginName;
+    private string _password;
+    private bool _isLoading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        System.Diagnostics.Debug.WriteLine($"MailLayout.OnInitializedAsync() -> AccountService.Account = {(this.AccountService.Account != null ? this.AccountService.Account.ToString() : "Null")}.");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await this.AccountService.Initialize();
+            StateHasChanged();
+        }
+
+        System.Diagnostics.Debug.WriteLine($"MailLayout.OnAfterRenderAsync() -> FirstRender = ({firstRender}); AccountService.Account = {(this.AccountService.Account != null ? this.AccountService.Account.ToString() : "Null")}.");
+    }
+
+    private async void OnButtonLoginClicked()
+    {
+        System.Diagnostics.Debug.WriteLine($"MailLayout.OnButtonLoginClicked()");
+
+        _isLoading = true;
+
+        await AccountService.Login(_userLoginName, _password);
+        await Task.Delay(1000);
+
+        _isLoading = false;
+    }
+}

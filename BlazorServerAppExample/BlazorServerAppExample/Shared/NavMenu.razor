@@ -1,0 +1,37 @@
+﻿<div class="border border-primary w-100 mx-3 my-2">
+    <ul class="navbar-nav flex-column w-100">
+        <li class="d-flex flex-column mb-1">
+            <NavLink class="btn fw-bold d-inline-flex justify-content-start align-items-center px-0" href="home">
+                <span class="mx-2 my-0 p-0"></span><i class="bi bi-house-door mx-1"></i>Home
+            </NavLink>
+        </li>
+
+        <li class="d-flex flex-column mb-1">
+            <button class="btn fw-bold d-inline-flex justify-content-start align-items-center px-0" data-bs-toggle="collapse" data-bs-target="#collapse-menu-account">
+                <i class="bi bi-list-ul mx-1"></i>Users&nbsp;and&nbsp;roles
+            </button>
+            <div class="collapse show ms-3" id="collapse-menu-account">
+                <ul class="list-unstyled">
+                    <li>
+                        <NavLink class="btn d-flex align-items-center" href="account/users">
+                            <i class="bi bi-people"></i>&nbsp;Users
+                        </NavLink>
+                    </li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>
+                        <NavLink class="btn d-flex align-items-center" href="account/roles">
+                            <i class="bi bi-card-checklist"></i>&nbsp;Roles
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="d-flex flex-column mb-1">
+            <NavLink class="btn fw-bold d-inline-flex justify-content-start align-items-center px-0" href="about">
+                <span class="mx-2 my-0 p-0"></span><i class="bi bi-question-octagon mx-1"></i>&nbsp;About
+            </NavLink>
+        </li>
+    </ul>
+</div>
