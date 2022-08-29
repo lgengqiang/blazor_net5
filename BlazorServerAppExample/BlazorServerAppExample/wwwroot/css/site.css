@@ -11,12 +11,12 @@
     z-index: 1000;
 }
 
-#blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
-}
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
 
 html, body {
     height: 100%;
@@ -46,4 +46,19 @@ a.active {
     margin-top: 0.25rem;
     font-size: 80%;
     color: #dc3545;
+}
+
+.header-layout {
+    color: #fafafa;
+    background-color: #3949ab;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) 5fr;
+}
+
+.footer-layout {
+    color: #000000;
+    background-color: #EEEEEE;
 }
